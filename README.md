@@ -51,10 +51,20 @@ You're going to need:
 
 Or use the included Dockerfile! (must install Docker first)
 
+
 ```shell
-docker build -t slate .
-docker run -d -p 4567:4567 slate
+docker build --rm -t slate .
+docker run -d -p 4567:4567 -v /home/slate:/app slate
 ```
+
+Added `-v /home/slate:/app` when running the container to link the volume /app with my local machine so I can change the sources and see them in real time.
+
+## Docker useful commands
+
+Enter to a running container:
+
+`docker exec -it <container-id-or-name> /bin/bash`
+
 
 You can now see the docs at <http://localhost:4567>. Whoa! That was fast!
 
