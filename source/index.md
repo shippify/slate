@@ -3,8 +3,7 @@ title: API Reference
 
 language_tabs:
   - shell
-  - ruby
-  - python
+  - javascript
 
 toc_footers:
   - <a href='#'>Sign Up for a Developer Key</a>
@@ -149,7 +148,6 @@ deliver[address] | address from delivery from pickup location location
 deliver[lat] | latitude from delivery location
 deliver[lng] | longitude from delivery location
 extra | JSON as a string for extra params given by the developer for their own use. For example: extra: `‘{\"note\":\"Perto do Seed\",\"troco\":\"$20\"}'`
-
 payment_type | (optional) Payment types must be specified for credit, debit or bank transfer. By default is credit. Check the payment status integers to send.
 payment_status | (optional) Specify the payment  status of this task, if it is already paid by the client through your platform then this task will be reconciled at the end of the month.
 total_amount | (optional) Is the total amount of money the shipper needs to charge in cash, if the recipient did not payed before with bank transfer or credit card online.
@@ -158,6 +156,7 @@ delivery_date | (optional) If you want to schedule a task for a date in the futu
 
 <aside class="notice">
 When developers and companies add warehouses in the shippify panel, you can use those warehouses to create a new task, specifying warehouses ids as your delivery or pickup locations.
+</aside>
 
 For example:
 
@@ -165,8 +164,6 @@ For example:
 --------- | -----------
 deliver[warehouse] | warehouse ID.
 pickup[warehouse] | warehouse ID.
-
-</aside>
  
 
 
