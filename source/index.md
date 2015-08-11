@@ -48,9 +48,14 @@ Shippify expects for the API key to be included in all API requests to the serve
 
 <aside class="notice">
 You can use the testing api keys for BASIC HTTP Authentication 
-<code>"api_id" : "i7p0cengnryk96fzip9442t9"</code> 
-<code>"api_secret_token": "bf77573b25ef44da893fb30d890af78f"</code> 
 </aside>
+
+ Api Key Id | Api Secret Id
+--------- | -----------
+"i7p0cengnryk96fzip9442t9" | "bf77573b25ef44da893fb30d890af78f"
+
+ 
+
 
 # Tasks
 
@@ -112,8 +117,8 @@ curl -X POST 'https://services.shippify.co/task/new'
 "id":     "task_id",
 "price":  "currency_price",
 "distance": "distance_in_km",
-“city” : “city_short_name”,
-“currencySign”:”example_CLP”
+"city" : "city_short_name",
+"currencySign":"example_CLP"
 }
 
 ```
