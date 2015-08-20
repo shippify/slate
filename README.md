@@ -58,9 +58,11 @@ docker rm -f slate-shippify
 
 docker build --rm -t slate .
 
-docker run -d -p 4567:4567 -v $PWD:/app --name slate-shippify slate
+docker run -d -p 4567:4567 -v $PWD:/app --name slateshippify slate
 
 ```
+
+
 
 Added `-v /home/slate:/app` when running the container to link the volume /app with my local machine so I can change the sources and see them in real time.
 
