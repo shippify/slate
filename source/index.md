@@ -15,7 +15,7 @@ includes:
 search: true
 ---
 
-# Introduction ook
+# Introduction
 
 Shippify is a SAAS for logistics using crowdsourced verified community of shippers to provide  a 24 hour delivery solution to e-commerce stores, retailers, supermarkets and small businesses.
 

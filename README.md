@@ -58,7 +58,7 @@ docker rm -f slate-shippify
 
 docker build --rm -t slate .
 
-docker run -d -p 4567:4567 -v $PWD:/app --name slateshippify slate
+docker run -d -p 4567:4567 -v $PWD:/app --name slate-shippify slate
 
 ```
 
