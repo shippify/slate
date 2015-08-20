@@ -176,92 +176,219 @@ pickup[warehouse] | warehouse ID.
 
 
 ```shell
-curl "https://services.shippify.co/task/info/:idtask"
-  -H "Authorization: meowmeowmeow"
-```
-
-> The above command returns JSON structured like this:
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Isis",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
-```
-
-This endpoint retrieves all kittens.
-
-### HTTP Request
-
-`GET http://example.com/api/kittens`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
+curl -X GET 'https://services.shippify.co/info/:idtask'
+  -u '<apiKeyId>:<apiSecretId>'
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
 {
-  "id": 2,
-  "name": "Isis",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+  "errFlag": 0,
+  "data": {
+    "items": [
+      {
+        "id": "0",
+        "name": "N Menor",
+        "qty": "1",
+        "size": "2"
+      },
+      {
+        "id": "0",
+        "name": "N Menor",
+        "qty": "1",
+        "size": "2"
+      }
+    ],
+    "date": "2015-07-03T21:38:14.000Z",
+    "sender": {
+      "email": "chinaloa.ts@gmail.com"
+    },
+    "receiver": {
+      "_id": "55761144dacec286b0aa8a55",
+      "id_ref": "Riacho das Pedras",
+      "name": "Riacho Doce",
+      "email": null,
+      "phonenumber": null,
+      "company": "85",
+      "address": "{\"address\":\"R. Corcovado, 572 - Monte Castelo, Contagem - MG, Brazil\",\"lat\":\"-19.9441765\",\"lng\":\"-44.066946299999984\",\"city\":\"Contagem\",\"country\":\"BR\"}"
+    },
+    "pickup_location": {
+      "address": "Rua Guilherme Ciriene, 367, Jardim Industrial, Minas Gerais, Brasil",
+      "lat": "-19.9647343",
+      "lng": "-44.02099750000002"
+    },
+    "delivery_location": {
+      "address": "R. Corcovado, 572 - Monte Castelo, Contagem - MG, Brazil",
+      "lat": "-19.9441765",
+      "lng": "-44.066946299999984"
+    },
+    "state": 0,
+    "type": 1,
+    "price": 4,
+    "distance": 5.32,
+    "shipper_id": null,
+    "total_size": 5,
+    "payment_status": 1,
+    "city": 1,
+    "delivery_dt": null,
+    "return_id": null,
+    "total_amount": 189,
+    "route_id": null,
+    "shipper_firstname": null,
+    "shipper_lastname": null,
+    "shipper_email": null,
+    "tid": "ibo57hd0px8ncdi",
+    "extra": {
+      "note": "Riacho das Pedras"
+    }
+  }
 }
 ```
 
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">If you're not using an administrator API key, note that some kittens will return 403 Forbidden if they are hidden for admins only.</aside>
+This endpoint retrieves an specific task.
 
 ### HTTP Request
 
-`GET http://example.com/kittens/<ID>`
+`GET https://services.shippify.co/task/info/:taskId`
 
-### URL Parameters
+### Query Parameters
 
 Parameter | Description
 --------- | -----------
-ID | The ID of the kitten to retrieve
+taskId | The id of the task to get info
+
+
+
+## Fare
+
+
+```shell
+curl -X GET 'https://services.shippify.co/task/fare'
+  -u '<apiKeyId>:<apiSecretId>'
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "errFlag": 0,
+    "price": "18.55",
+    "distance": 2.9655261209905985,
+    "currency": "BRL",
+    "city": {
+        "id": 1,
+        "name": "Belo Horizonte",
+        "country": "BRASIL",
+        "lat": -19.9245,
+        "lng": -43.9353,
+        "short": "BH",
+        "lang": "pr"
+    }
+}
+``` 
+
+Get the price of the fare based on the pickup and delivery locations, used mostly by the widgets or components created by developers in the anticipation of purchase at order placement in e-commerce sites.
+
+
+### HTTP Request
+
+`GET https://services.shippify.co/task/fare`
+
+### Query Parameters
+
+Parameter | Values | Description
+--------- | -----------| -----------
+data |  `{
+    "pickup": {
+        "lat": 0,
+        "lng": 0
+    },
+    "deliver": {
+        "lat": 0,
+        "lng": 0
+    }
+}` | JSON of pickup and delivery location values 
+
+The json data will go like this
+ 
+
+
+Example
+```
+  https://services.shippify.co/task/fare?data={%22pickup%22:{%22lat%22:%22-19.9298613%22,%22lng%22:%22-43.94431470000001%22},%22deliver%22:{%22lat%22:%22-19.9551971%22,%22lng%22:%22-43.93555700000002%22}}
+```
+
+
+
+## Status
+
+Sepecification of status that a task can have. The status of a task is determined by an integer. The possible values are:
+
+
+
+### Status Details
+
+Status | Description
+------ | -----------
+0 | Cancelled - The Task was canceled by the administrator
+1 | Getting ready -  The task is created but need to define the recipient or receiver.
+2 | Pending to assign -  The task has not been assigned to any worker/shipper
+3 | Pending for shipper response - The task was assigned by the admin and needs to be accepted by the assigned shipper.
+4 | Shipper confirmed  - The task has a shipper already confirmed by him to do the task. Starts the journey to the pickup location.
+5 | Being picked up - Shipper arrived to the pickup location. The task has being picked up by a worker/shipper.  Now Shipper begins journey to 
+6 | Being delivered -  Shipper begun the journey from the pickup location to the destination.
+7 | Delivered successfully -   Shipper dropped off the product(s) at the drop off /delivered location of the task. The system admin or receiver confirmed the task was completed.
+
+## Payment Types
+
+Currently payment types of a task can be 5.
+
+
+Type number | Description
+------ | -----------
+1 | Credit - pay with credit card
+2 | Cash - pay in cash
+3 | Bank transfer - Pay in a bank transfer
+4 | Debit - Pay with debit card
+5 | Boleto - Pay with boleto (brasil)
+
+
+## Payment STATUS
+
+The payment status can change from paid to not paid.
+
+Status number | Description
+------ | -----------
+1 | Not paid 
+2 | Paid
+
+## Sizes
+
+
+All tasks have a “total_size” (total size) that matches with a shipper that can handle that type of size. The total size of a task is calculated by the sum of all the product sizes on the task. The supported sizes are:
+
+
+Size id | Description
+------ | -----------
+1 | Extra Small (XS) - Keys, papers, documents.
+2 | Small (S) -  Tedy Bears, Shoe’s box, keyboard, Ipad.
+3 | Medium (M)-  Laptop, PC, monitor.
+4 | Large (L)- Chair, a small desk, bicycle.
+5 | Extra large (XL) - Desk, furniture, boat.
+
+
+
+# Warehouses
+
+The warehouses API’s allows companies to set locations that they currently use for pickup or delivery.  
+
+
+
+
+TASK FARES AND CALCULATIONS
+
+All task are calculated based in variables set by city. Every city has different fares values that are calculated based on distance (KM) and total size.
+
+http://services.shippify.co/fares
 
