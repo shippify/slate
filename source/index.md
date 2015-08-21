@@ -263,8 +263,8 @@ taskId | The id of the task to get info
 ### Response attributes detail
 
 
-Attribute |----------------| Description
---------- |----------------| -----------
+Attribute | Variable name | Description
+--------- | ---------------- | -----------
 Total Amount | total_amount | Is the total amount of money that the shipper will charge the client.
 Price         | price | Is the shipping price, and what the shipper is going to charge Shippify to do the shipping.
  
