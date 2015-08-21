@@ -12,8 +12,10 @@ elif [ "$1" == "restart" ]; then
 
 	docker rm -f slate-shippify
 
-	echo "Starting the process again ... "
+	
 	docker run -d -p 4567:4567 -v $PWD:/app --name slate-shippify slate
+	
+	echo "Starting the process again ... check "
 
 elif [ "$1" == "stop" ]; then
 	

@@ -1,12 +1,13 @@
 ---
-title: API Reference
+title: Shippify API Reference
 
 language_tabs:
   - shell
   - javascript
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
+  - <a href='http://shippify.co'>Check our services</a>
+  - <a href='https://services.shippify.co/company/signup'>Sign Up for a Developer Key</a>
   - <a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a>
 
 includes:
@@ -259,6 +260,14 @@ Parameter | Description
 taskId | The id of the task to get info
 
 
+### Response attributes detail
+
+
+Attribute |----------------| Description
+--------- |----------------| -----------
+Total Amount | total_amount | Is the total amount of money that the shipper will charge the client.
+Price         | price | Is the shipping price, and what the shipper is going to charge Shippify to do the shipping.
+ 
 
 ## Fare
 
@@ -297,28 +306,21 @@ Get the price of the fare based on the pickup and delivery locations, used mostl
 
 ### Query Parameters
 
-Parameter | Values | Description
---------- | -----------| -----------
-data |  `{
-    "pickup": {
-        "lat": 0,
-        "lng": 0
-    },
-    "deliver": {
-        "lat": 0,
-        "lng": 0
-    }
-}` | JSON of pickup and delivery location values 
-
-The json data will go like this
- 
+| Parameter | Value      | Description
+| --------- | ------------| -----------
+| data      | `{ "pickup": { "lat": 0,"lng": 0 },"deliver": {"lat": 0,"lng": 0 } }` | JSON of pickup and delivery location values 
 
 
-Example
-```
-  https://services.shippify.co/task/fare?data={%22pickup%22:{%22lat%22:%22-19.9298613%22,%22lng%22:%22-43.94431470000001%22},%22deliver%22:{%22lat%22:%22-19.9551971%22,%22lng%22:%22-43.93555700000002%22}}
-```
+### CALCULATIONS
 
+All task are calculated based in variables set by city. Every city has different fares values that are calculated based on distance (KM) and total size.
+
+`http://services.shippify.co/fares`
+
+
+<aside class="notice">
+This endpoint will be moved to a FARE entity section, not below TASK entity section like now.
+</aside>
 
 
 ## Status
@@ -339,6 +341,22 @@ Status | Description
 5 | Being picked up - Shipper arrived to the pickup location. The task has being picked up by a worker/shipper.  Now Shipper begins journey to 
 6 | Being delivered -  Shipper begun the journey from the pickup location to the destination.
 7 | Delivered successfully -   Shipper dropped off the product(s) at the drop off /delivered location of the task. The system admin or receiver confirmed the task was completed.
+
+
+
+### Scenarios
+
+* In the state of 3 If a Shipper decline the assignation of a task, the task state goes back to 2.
+* In the state of 4 If a Shipper have a problem picking up the items of task and decides to abandon the trip the task state goes back to 2.
+* The administrator can only cancel a task if the task is not yet assigned with a confirmed shipper.
+
+
+<aside class="warning">
+Statuses can change in the future, especially because status 5: picking up the products could be divided in 2 where you have picking up and picked up.
+</aside>
+
+
+
 
 ## Payment Types
 
@@ -385,10 +403,32 @@ The warehouses API’s allows companies to set locations that they currently use
 
 
 
+# Routes
 
-TASK FARES AND CALCULATIONS
+Routes will cluster tasks and create a more efficient fare for all those tasks. The route can be assigned to a shipper so he can do the delivery of multiple tasks.
 
-All task are calculated based in variables set by city. Every city has different fares values that are calculated based on distance (KM) and total size.
+Routes that we currently support are:
 
-http://services.shippify.co/fares
+* Common pickup location 
+This routes are a group of task that have common pickup locations and different delivery locations.
+
+
+
+
+# Widgets
+
+
+Widgets allow companies to create, calculate and query tasks with a user interface provided by Shippify that can be customized with the look and feel of any UI.
+
+
+Get an HTML embedded component from the company of the user. A list of all registered warehouses
+
+
+The widget is initialized with some variables that will be documented soon.
+
+
+
+
+
+
 
