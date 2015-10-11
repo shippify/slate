@@ -1,3 +1,5 @@
+#!/bin/bash
+
 usage() { echo "Usage: $0 [<restart|stop|shell>] [<argument>]" 1>&2; exit 1; }
 
 

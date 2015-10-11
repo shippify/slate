@@ -103,10 +103,10 @@ curl -X POST 'https://services.shippify.co/task/new'
   -d 'task[recipient][email]=miguel@shippify.co' 
   -d 'task[pickup][address]=Rua Doutor Sette Câmara, Luxemburgo' 
   -d 'task[pickup][lat]=-19.9430687' 
-  -d 'task[pickup[lng]=-43.95513460000001' 
-  -d 'deliver[address]=Rua Curitiba 1957, Lourdes' 
-  -d 'deliver[lat]=-19.9298613' 
-  -d 'deliver[lng]=-43.94431470000001' 
+  -d 'task[pickup][lng]=-43.95513460000001' 
+  -d 'task[deliver][address]=Rua Curitiba 1957, Lourdes' 
+  -d 'task[deliver][lat]=-19.9298613' 
+  -d 'task[deliver][lng]=-43.94431470000001' 
   -d 'task[extra]= {\"note\":\"Perto do Seed\",\"troco\":\"$20\"}'
 ```
 
@@ -158,6 +158,8 @@ payment_type | (optional) Payment types must be specified for credit, debit or b
 payment_status | (optional) Specify the payment  status of this task, if it is already paid by the client through your platform then this task will be reconciled at the end of the month.
 total_amount | (optional) Is the total amount of money the shipper needs to charge in cash, if the recipient did not payed before with bank transfer or credit card online.
 delivery_date | (optional) If you want to schedule a task for a date in the future you can specify a delivery date. This parameter must be a UNIX TIMESTAMP.
+
+send_email_params  | (optional) If you want to send an email to the recipient. This is a JSON string. Some companies can have or customize email templates to send a custom email to their users every time a task is created. For example: send_email_params: `‘{\"from\":\"Custom from email name or company name \",\"subject\":\"Custom subject for your email\"}'`
 
 
 <aside class="notice">
@@ -299,6 +301,8 @@ curl -X GET 'https://services.shippify.co/task/fare'
 
 Get the price of the fare based on the pickup and delivery locations, used mostly by the widgets or components created by developers in the anticipation of purchase at order placement in e-commerce sites.
 
+We are changing this endpoint to support multiple taks and routes
+
 
 ### HTTP Request
 
@@ -401,6 +405,61 @@ Size id | Description
 
 The warehouses API’s allows companies to set locations that they currently use for pickup or delivery.  
 
+
+## List
+
+
+```shell
+curl -X GET 'https://services.shippify.co/warehouse/list'
+  -u '<apiKeyId>:<apiSecretId>'
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "errFlag": 0,
+    "warehouses": [
+        {
+            "id": 29,
+            "name": "Av Quito",
+            "id_company": 2,
+            "location": "{\"address\":\"Avenida Quito, Guayaquil, Guayas, Ecuador\",\"lat\":\"-2.19761\",\"lng\":\"-79.8917601\",\"country\":\"EC\"}",
+            "lat": -2.19761,
+            "lng": -79.8918
+        },
+        {
+            "id": 32,
+            "name": "Alborada V Etapa",
+            "id_company": 2,
+            "location": "{\"address\":\"Alborada V, Guayaquil, Guayas, Ecuador\",\"lat\":\"-2.1365745\",\"lng\":\"-79.89618000000002\",\"country\":\"EC\"}",
+            "lat": -2.13657,
+            "lng": -79.8962
+        }  
+    ]
+}
+```
+
+This endpoint retrieves an specific task.
+
+### HTTP Request
+
+`GET https://services.shippify.co/task/info/:taskId`
+
+### Query Parameters
+
+Parameter | Description
+--------- | -----------
+taskId | The id of the task to get info
+
+
+### Response attributes detail
+
+
+Attribute | Variable name | Description
+--------- | ---------------- | -----------
+Total Amount | total_amount | Is the total amount of money that the shipper will charge the client.
+Price         | price | Is the shipping price, and what the shipper is going to charge Shippify to do the shipping.
 
 
 # Routes
