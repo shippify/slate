@@ -8,16 +8,23 @@ if [ "$1" == "shell" ]; then
 
 	docker exec -it slate-shippify /bin/bash
 
-elif [ "$1" == "restart" ]; then
+elif [ "$1" == "start" ]; then
 	
 	echo "Removing the slate docker process ..."
 
 	docker rm -f slate-shippify
-
 	
-	docker run -d -p 4567:4567 -v $PWD:/app --name slate-shippify slate
+	docker run -p 4567:4567 -v $PWD:/app --name slate-shippify  -d slate-shippify-image
 	
 	echo "Starting the process again ... check "
+
+elif [ "$1" == "build" ]; then
+	
+	echo "Building ..."
+
+	docker rm -f slate-shippify
+	
+	docker build --rm -t slate-shippify-image .
 
 elif [ "$1" == "stop" ]; then
 	
