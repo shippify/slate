@@ -134,32 +134,31 @@ This endpoint creates a new task in the system that will show up to a nearest sh
 
 Parameter | Description
 --------- | -----------
-products[0][id] | Identifier in your stock of 0 product
-products[0][name] | name of 0 product
-products[0][qty] | quantity of 0 product, how many of this product.
-products[0][size] | size of 0 product
-products[1...n][name] | name of n product (optional)
-products[1...n][qty] | quantity of n product, how many of this product.(optional)
-products[1...n][size] | size of n product (optional)
-recipient[name] | (optional) name of user who receives the shipping
-recipient[email] | email of user who receives the shipping
-recipient[phone] | (optional) Phone number of user who receives the shipping
-sender[name] | (optional) Name of user who sends the shipping
-sender[email] | email of user who sends the shipping
-sender[phone] | (optional) Phone number of user who sends the shipping
-pickup[address] | address from pickup location
-pickup[lat] | latitude from pickup location
-pickup[lng] | longitude from pickup location
-deliver[address] | address from delivery from pickup location location
-deliver[lat] | latitude from delivery location
-deliver[lng] | longitude from delivery location
-extra | JSON as a string for extra params given by the developer for their own use. For example: extra: `‘{\"note\":\"Perto do Seed\",\"troco\":\"$20\"}'`
-payment_type | (optional) Payment types must be specified for credit, debit or bank transfer. By default is credit. Check the payment status integers to send.
-payment_status | (optional) Specify the payment  status of this task, if it is already paid by the client through your platform then this task will be reconciled at the end of the month.
-total_amount | (optional) Is the total amount of money the shipper needs to charge in cash, if the recipient did not payed before with bank transfer or credit card online.
-delivery_date | (optional) If you want to schedule a task for a date in the future you can specify a delivery date. This parameter must be a UNIX TIMESTAMP.
-
-send_email_params  | (optional) If you want to send an email to the recipient. This is a JSON string. Some companies can have or customize email templates to send a custom email to their users every time a task is created. For example: send_email_params: `‘{\"from\":\"Custom from email name or company name \",\"subject\":\"Custom subject for your email\"}'`
+task[products][0][id] | Identifier in your stock of 0 product
+task[products][0][name] | name of 0 product
+task[products][0][qty] | quantity of 0 product, how many of this product.
+task[products][0][size] | size of 0 product
+task[products][1...n][name] | name of n product (optional)
+task[products][1...n][qty] | quantity of n product, how many of this product.(optional)
+task[products][1...n][size] | size of n product (optional)
+task[recipient][name] | (optional) name of user who receives the shipping
+task[recipient][email] | email of user who receives the shipping
+task[recipient][phone] | (optional) Phone number of user who receives the shipping
+task[sender][name] | (optional) Name of user who sends the shipping
+task[sender][email] | email of user who sends the shipping
+task[sender][phone] | (optional) Phone number of user who sends the shipping
+task[pickup][address] | address from pickup location
+task[pickup][lat] | latitude from pickup location
+task[pickup][lng] | longitude from pickup location
+task[deliver][address] | address from delivery from pickup location location
+task[deliver][lat] | latitude from delivery location
+task[deliver][lng] | longitude from delivery location
+task[extra] | JSON as a string for extra params given by the developer for their own use. For example: extra: `‘{\"note\":\"Perto do Seed\",\"troco\":\"$20\"}'`
+task[payment_type] | (optional) Payment types must be specified for credit, debit or bank transfer. By default is credit. Check the payment status integers to send.
+task[payment_status] | (optional) Specify the payment  status of this task, if it is already paid by the client through your platform then this task will be reconciled at the end of the month.
+task[total_amount] | (optional) Is the total amount of money the shipper needs to charge in cash, if the recipient did not payed before with bank transfer or credit card online.
+task[delivery_date] | (optional) If you want to schedule a task for a date in the future you can specify a delivery date. This parameter must be a UNIX TIMESTAMP.
+task[send_email_params]  | (optional) If you want to send an email to the recipient. This is a JSON string. Some companies can have or customize email templates to send a custom email to their users every time a task is created. For example: send_email_params: `‘{\"from\":\"Custom from email name or company name \",\"subject\":\"Custom subject for your email\"}'`
 
 
 <aside class="notice">
