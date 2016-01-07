@@ -97,7 +97,7 @@ curl -X POST 'https://services.shippify.co/task/new'
   -d 'task[deliver][address]=Rua Curitiba 1957, Lourdes' 
   -d 'task[deliver][lat]=-19.9298613' 
   -d 'task[deliver][lng]=-43.94431470000001' 
-  -d 'task[extra]= {"note":"Near Lalito's Store","change":"$20"}'
+  -d 'task[extra]= {"note":"In front of a green building with red roof","change":"$20"}'
 ```
 
 > The above command returns JSON structured like this:
@@ -143,7 +143,7 @@ task[pickup][lng] | longitude from pickup location
 task[deliver][address] | address from delivery from pickup location location
 task[deliver][lat] | latitude from delivery location
 task[deliver][lng] | longitude from delivery location
-task[extra] | JSON as a string for extra params given by the developer for their own use. For example: extra: `‘{\"note\":\"Near Leo's Store\",\"change\":\"$20\"}'`
+task[extra] | JSON as a string for extra params given by the developer for their own use. For example: extra: `‘{"note":"In front of a green building with red roof","change":"$20"}'`
 task[payment_type] | (optional) Payment types must be specified for credit, debit or bank transfer. By default is credit. Check the payment status integers to send.
 task[payment_status] | (optional) Specify the payment  status of this task, if it is already paid by the client through your platform then this task will be reconciled at the end of the month.
 task[total_amount] | (optional) Is the total amount of money the shipper needs to charge in cash, if the recipient did not payed before with bank transfer or credit card online.
