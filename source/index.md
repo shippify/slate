@@ -40,22 +40,11 @@ curl -X POST "api_endpoint_here"
 
 > Make sure to replace `<apiKeyId>` with your API key and <apiSecretId> with the Api secret Id.
 
-Shippify uses API keys to allow access to the API. You can check and get a new API key pair signing in your account [admin portal](https://services.shippify.co/settings).
+Shippify uses API keys to allow access to the API. You can get an API key pair signing in your account at [admin portal](https://services.shippify.co/settings).
 
 Shippify expects for the API key to be included in all API requests to the server in a header that looks like the following:
 
 `Authorization: "Basic <apiKeyId>:<apiSecretId>" `
-
-
-<aside class="notice">
-You can use the testing api keys for BASIC HTTP Authentication 
-</aside>
-
- Api Key Id | Api Secret Id
---------- | -----------
-"i7p0cengnryk96fzip9442t9" | "bf77573b25ef44da893fb30d890af78f"
-
- 
 
 
 # Tasks
@@ -94,6 +83,7 @@ function newTask() {
 
 ```shell
 curl -X POST 'https://services.shippify.co/task/new'
+  -H 'Accept-Charset: utf-8'
   -u '<apiKeyId>:<apiSecretId>'
   -d 'task[products][0][id]=my_inventory_product_id' 
   -d 'task[products][0][name]=Glass' 
@@ -107,7 +97,7 @@ curl -X POST 'https://services.shippify.co/task/new'
   -d 'task[deliver][address]=Rua Curitiba 1957, Lourdes' 
   -d 'task[deliver][lat]=-19.9298613' 
   -d 'task[deliver][lng]=-43.94431470000001' 
-  -d 'task[extra]= {\"note\":\"Perto do Seed\",\"troco\":\"$20\"}'
+  -d 'task[extra]= {"note":"Near Lalito's Store","change":"$20"}'
 ```
 
 > The above command returns JSON structured like this:
@@ -153,7 +143,7 @@ task[pickup][lng] | longitude from pickup location
 task[deliver][address] | address from delivery from pickup location location
 task[deliver][lat] | latitude from delivery location
 task[deliver][lng] | longitude from delivery location
-task[extra] | JSON as a string for extra params given by the developer for their own use. For example: extra: `‘{\"note\":\"Perto do Seed\",\"troco\":\"$20\"}'`
+task[extra] | JSON as a string for extra params given by the developer for their own use. For example: extra: `‘{\"note\":\"Near Leo's Store\",\"change\":\"$20\"}'`
 task[payment_type] | (optional) Payment types must be specified for credit, debit or bank transfer. By default is credit. Check the payment status integers to send.
 task[payment_status] | (optional) Specify the payment  status of this task, if it is already paid by the client through your platform then this task will be reconciled at the end of the month.
 task[total_amount] | (optional) Is the total amount of money the shipper needs to charge in cash, if the recipient did not payed before with bank transfer or credit card online.
