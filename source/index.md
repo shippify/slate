@@ -301,7 +301,7 @@ We are changing this endpoint to support multiple taks and routes
 
 | Parameter | Value      | Description
 | --------- | ------------| -----------
-| data      | `{ "pickup": { "lat": 0,"lng": 0 },"deliver": {"lat": 0,"lng": 0 } }` | JSON of pickup and delivery location values 
+| data      | `{ "pickup_location": { "lat": Double,"lng": Double },"delivery_location": {"lat": Double,"lng": Double }, items: [{size: Integer, qty: Integer}] }` | JSON of pickup and delivery location values 
 
 
 ### CALCULATIONS
