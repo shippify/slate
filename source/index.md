@@ -287,9 +287,47 @@ Route | route_id | Current route the task belongs to if any
 
 ## Fare
 
+```javascript
+var data = {
+  data: {
+    pickup_location: {
+      lat: -2.19761,
+      lng: -79.8917601
+    },
+    delivery_location: {
+      lat: -2.141976,
+      lng: -79.86730899999998
+    },
+    items: [
+      {
+        id: "10234",
+        name: "TV",
+        qty: 2,
+        size: 3
+      }
+    ]
+  }
+};
+
+$.ajax({
+  type: 'GET',
+  url: '/task/fare',
+  data: data,
+  beforeSend: function (xhr) {
+    xhr.setRequestHeader("Authorization", "Basic " + btoa(<apiKeyId> + ":" + <apiSecretId>));
+  },
+  success: function (response, textStatus, jqXHR) {
+    console.log("Success response and validate JSON" + JSON.stringify(response));
+  },
+  error: function (jqXHR, exception) {
+    console.log("Error en envio de Datos" + exception);
+  }
+});
+```
+
 
 ```shell
-curl -X GET 'https://services.shippify.co/task/fare'
+curl -X GET 'https://services.shippify.co/task/fare?data=[{%22pickup_location%22:{%22lat%22:-2.19761,%22lng%22:-79.8917601},%22delivery_location%22:{%22lat%22:-2.141976,%22lng%22:-79.86730899999998},%22items%22:[{%22id%22:%2210234%22,%22name%22:%22TV%22,%22qty%22:%222%22,%22size%22:%223%22,%22price%22:%220%22}]}]'
   -u '<apiKeyId>:<apiSecretId>'
 ```
 
