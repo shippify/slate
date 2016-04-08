@@ -327,7 +327,7 @@ $.ajax({
 
 
 ```shell
-curl -X GET 'https://services.shippify.co/task/fare?data=[{%22pickup_location%22:{%22lat%22:-2.19761,%22lng%22:-79.8917601},%22delivery_location%22:{%22lat%22:-2.141976,%22lng%22:-79.86730899999998},%22items%22:[{%22id%22:%2210234%22,%22name%22:%22TV%22,%22qty%22:%222%22,%22size%22:%223%22,%22price%22:%220%22}]}]'
+curl -X GET 'https://services.shippify.co/task/fare?data=[{"pickup_location":{"lat":-2.19761,"lng":-79.8917601},"delivery_location":{"lat":-2.141976,"lng":-79.86730899999998},"items":[{"id":"10234","name":"TV","qty":"2","size":"3","price":"0"}]}]'
   -u '<apiKeyId>:<apiSecretId>'
 ```
 
