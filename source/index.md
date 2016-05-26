@@ -80,7 +80,9 @@ var data = {
       lat: -19.9298613,
       lng: -43.94431470000001
     },
-    extra: '{"note":"In front of a green building with red roof","change":"$20"}'
+    extra: '{"pk_note": "In front of a red house with green roof", "note":"In front of a green building with red roof","change":"$20"}',
+    pickup_date: '1467244800',
+    delivery_date: '1467590400'
   }
 };
 
@@ -105,19 +107,21 @@ $.ajax({
 curl -X POST 'https://services.shippify.co/task/new'
   -H 'Accept-Charset: utf-8'
   -u '<apiKeyId>:<apiSecretId>'
-  -d 'task[products][0][id]=my_inventory_product_id' 
-  -d 'task[products][0][name]=Glass' 
-  -d 'task[products][0][size]=1' 
-  -d 'task[products][0][qty]=4' 
-  -d 'task[sender][email]=luis@shippify.co' 
-  -d 'task[recipient][email]=miguel@shippify.co' 
-  -d 'task[pickup][address]=Rua Doutor Sette Câmara, Luxemburgo' 
-  -d 'task[pickup][lat]=-19.9430687' 
-  -d 'task[pickup][lng]=-43.95513460000001' 
-  -d 'task[deliver][address]=Rua Curitiba 1957, Lourdes' 
-  -d 'task[deliver][lat]=-19.9298613' 
-  -d 'task[deliver][lng]=-43.94431470000001' 
-  -d 'task[extra]={"note":"In front of a green building with red roof","change":"$20"}'
+  -d 'task[products][0][id]=my_inventory_product_id'
+  -d 'task[products][0][name]=Glass'
+  -d 'task[products][0][size]=1'
+  -d 'task[products][0][qty]=4'
+  -d 'task[sender][email]=luis@shippify.co'
+  -d 'task[recipient][email]=miguel@shippify.co'
+  -d 'task[pickup][address]=Rua Doutor Sette Câmara, Luxemburgo'
+  -d 'task[pickup][lat]=-19.9430687'
+  -d 'task[pickup][lng]=-43.95513460000001'
+  -d 'task[deliver][address]=Rua Curitiba 1957, Lourdes'
+  -d 'task[deliver][lat]=-19.9298613'
+  -d 'task[deliver][lng]=-43.94431470000001'
+  -d 'task[extra]= {"pk_note": "In front of a red house with green roof", "note":"In front of a green building with red roof","change":"$20"}'
+  -d 'task[pickup_date]=1467244800'
+  -d 'task[delivery_date]=1467590400'
 ```
 
 > The above command returns JSON structured like this:
@@ -146,10 +150,11 @@ task.recipient | Customer object for the receiving party (optional)
 task.sender | Customer object for the emitting party (optional)
 task.pickup | Location of object for pickup
 task.deliver | Location of object for delivery
-task.extra | JSON string for additional data given by the developer for their own use. For example: extra: `‘{"note":"In front of a green building with red roof","change":"$20"}'`
+task.extra | JSON string for additional data given by the developer for their own use. For example: extra: `‘{"pk_note": "In front of a red house with green roof", "note":"In front of a green building with red roof","change":"$20"}'`
 task.payment_type | Payment types must be specified for credit, debit or bank transfer (optional). Defaults to Credit(1)
 task.payment_status | Specify the payment status of this task, if it is already paid by the client through your platform then this task will be reconciled at the end of the month (optional)
 task.total_amount | The total amount charged by the shipper in cash, if the recipient did not pay before via bank transfer or credit card online (optional)
+task.pickup_date | Pickup date for a future scheduled task. This parameter must be a UNIX TIMESTAMP (optional)
 task.delivery_date | Delivery date for a future scheduled task. This parameter must be a UNIX TIMESTAMP (optional)
 task.send_email_params  | (optional) If you want to send an email to the recipient. This is a JSON string. Some companies can have or customize email templates to send a custom email to their users every time a task is created. For example: send_email_params: `‘{\"from\":\"Custom from email name or company name \",\"subject\":\"Custom subject for your email\"}'`
 
@@ -178,7 +183,6 @@ address | Location's physical address
 lat | Location's latitude
 lng | Location's longitude
 
-
 <aside class="notice">
 When developers and companies add warehouses in the shippify panel, you can use those warehouses to create a new task, specifying warehouses ids as your delivery or pickup locations.
 </aside>
@@ -189,7 +193,7 @@ For example:
 --------- | -----------
 deliver[warehouse] | warehouse ID.
 pickup[warehouse] | warehouse ID.
- 
+
 
 
 ## Get a Task
@@ -242,7 +246,8 @@ curl -X GET 'https://services.shippify.co/task/info/:taskId'
     "dropLat": "-19.9441765",
     "dropLong": "-44.066946299999984",
     "date": "2015-07-03T21:38:14.000Z",
-    "delivery_date": "0000-00-00 00:00:00",
+    "pickup_date": "2016-06-30T00:00:00.000Z",
+    "delivery_date": "2016-07-11T00:00:00.000Z",
     "sender": "chinaloa.ts@gmail.com",
     "recipient": "55761144dacec286b0aa8a55",
     "totalSize": 5,
@@ -253,7 +258,7 @@ curl -X GET 'https://services.shippify.co/task/info/:taskId'
     "shipper": null,
     "route": null,
     "sign": "R$",
-    "recipientData": "{\"email\":\"55761144dacec286b0aa8a55\",\"name\":\"55761144dacec286b0aa8a55\"}",
+    "recipientData": "{\"email\":\"super_shipper@gmail.com\",\"name\":\"Super Shipper\"}",
     "extra": "{\"note\":\"Riacho das Pedras\"}"
   }
 }
@@ -283,7 +288,6 @@ Creation Date | date | The date in which the task was created
 Task State | state | Current state in shipping flow of the task
 Shipper Id | shipper_id | Current shipper assigned to handle task if any
 Route | route_id | Current route the task belongs to if any
- 
 
 ## Fare
 
@@ -349,7 +353,7 @@ curl -X GET 'https://services.shippify.co/task/fare?data=[{"pickup_location":{"l
     "lang": "pr"
   }
 }
-``` 
+```
 
 Get the price of the fare based on the pickup and delivery locations, used mostly by the widgets or components created by developers in the anticipation of purchase at order placement in e-commerce sites.
 
@@ -396,7 +400,7 @@ Status | Description
 2 | Pending to assign -  The task has not been assigned to any worker/shipper
 3 | Pending for shipper response - The task was assigned by the admin and needs to be accepted by the assigned shipper.
 4 | Shipper confirmed  - The task has a shipper already confirmed by him to do the task. Starts the journey to the pickup location.
-5 | Being picked up - Shipper arrived to the pickup location. The task has being picked up by a worker/shipper.  Now Shipper begins journey to 
+5 | Being picked up - Shipper arrived to the pickup location. The task has being picked up by a worker/shipper.  Now Shipper begins journey to
 6 | Being delivered -  Shipper begun the journey from the pickup location to the destination.
 7 | Delivered successfully -   Shipper dropped off the product(s) at the drop off /delivered location of the task. The system admin or receiver confirmed the task was completed.
 
@@ -433,7 +437,7 @@ The payment status can change from paid to not paid.
 
 Status number | Description
 ------ | -----------
-1 | Not paid 
+1 | Not paid
 2 | Paid
 
 ## Sizes
@@ -502,7 +506,7 @@ Routes will cluster tasks and create a more efficient fare for all those tasks. 
 
 Routes that we currently support are:
 
-* Common pickup location 
+* Common pickup location
 This routes are a group of task that have common pickup locations and different delivery locations.
 
 
@@ -518,10 +522,3 @@ Get an HTML embedded component from the company of the user. A list of all regis
 
 
 The widget is initialized with some variables that will be documented soon.
-
-
-
-
-
-
-
