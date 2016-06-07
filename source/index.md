@@ -162,7 +162,7 @@ task.send_email_params  | (optional) If you want to send an email to the recipie
 
 Parameter | Description
 --------- | -----------
-id | Identifier in your client's stock of the product
+id | Identifier in your client's stock of the product (optional)
 name | Name of the product
 qty | Quantity of items of the product
 size | Size of the product
@@ -172,8 +172,10 @@ size | Size of the product
 Parameter | Description
 --------- | -----------
 name | Name of the customer
-email | Email of the customer
-phone | Phone number of the customer
+email | Email of the customer (optional)*
+phone | Phone number of the customer (optional)*
+
+\* All customer objects must have at the bare minimum an email address or phone number associated to it.
 
 ### Location Object
 
