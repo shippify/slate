@@ -156,7 +156,7 @@ task.payment_status | Specify the payment status of this task, if it is already 
 task.total_amount | The total amount charged by the shipper in cash, if the recipient did not pay before via bank transfer or credit card online (optional)
 task.pickup_date | Pickup date for a future scheduled task. This parameter must be a UNIX TIMESTAMP (optional)
 task.delivery_date | Delivery date for a future scheduled task. This parameter must be a UNIX TIMESTAMP (optional)
-task.send_email_params  | (optional) If you want to send an email to the recipient. This is a JSON string. Some companies can have or customize email templates to send a custom email to their users every time a task is created. For example: send_email_params: `‘{\"from\":\"Custom from email name or company name \",\"subject\":\"Custom subject for your email\"}'`
+task.send_email_params  | (optional) If you want to send an email to the recipient. This is a JSON string. Some companies can have or customize email templates to send a custom email to their users every time a task is created. For example: send_email_params: `‘{\"from\":\"Custom from email name or company name \",\"subject\":\"Custom subject for your email\", \"to\": \"Email of the task's recipient.\"}'`
 
 ### Product Object
 
